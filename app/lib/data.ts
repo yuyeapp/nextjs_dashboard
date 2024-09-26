@@ -8,7 +8,7 @@ import {
   Revenue,
 } from './definitions';
 import { formatCurrency } from './utils';
-import { users, customers, invoices, revenue } from './placeholder-data'
+import { users, customers, invoices, revenue, latestInvoces } from './placeholder-data'
 
 // export async function fetchRevenue() {
 //   try {
@@ -33,24 +33,31 @@ export async function fetchRevenue() {
   return revenue;
 }
 
-export async function fetchLatestInvoices() {
-  try {
-    const data = await sql<LatestInvoiceRaw>`
-      SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
-      FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
-      ORDER BY invoices.date DESC
-      LIMIT 5`;
+// export async function fetchLatestInvoices() {
+//   try {
+//     const data = await sql<LatestInvoiceRaw>`
+//       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
+//       FROM invoices
+//       JOIN customers ON invoices.customer_id = customers.id
+//       ORDER BY invoices.date DESC
+//       LIMIT 5`;
 
-    const latestInvoices = data.rows.map((invoice) => ({
-      ...invoice,
-      amount: formatCurrency(invoice.amount),
-    }));
-    return latestInvoices;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch the latest invoices.');
-  }
+//     const latestInvoices = data.rows.map((invoice) => ({
+//       ...invoice,
+//       amount: formatCurrency(invoice.amount),
+//     }));
+//     return latestInvoices;
+//   } catch (error) {
+//     console.error('Database Error:', error);
+//     throw new Error('Failed to fetch the latest invoices.');
+//   }
+// }
+
+export async function fetchLatestInvoices() {
+  return latestInvoces.map((invoice) => ({
+    ...invoice,
+    amount: formatCurrency(invoice.amount),
+  }));
 }
 
 export async function fetchCardData() {
