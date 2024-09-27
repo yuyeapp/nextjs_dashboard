@@ -100,6 +100,7 @@ export async function fetchLatestInvoices() {
 // }
 
 export async function fetchCardData() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return {
     numberOfCustomers: 8,
     numberOfInvoices: 15,
