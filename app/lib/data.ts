@@ -57,6 +57,7 @@ export async function fetchRevenue() {
 // }
 
 export async function fetchLatestInvoices() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return latestInvoces.map((invoice) => ({
     ...invoice,
     amount: formatCurrency(invoice.amount),
