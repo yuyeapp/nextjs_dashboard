@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+    // images
     images: {
         remotePatterns: [
             {
@@ -10,6 +11,10 @@ const nextConfig = {
                 pathname: '/photos/**',
             },
         ],
+    },
+    // partial prerendering
+    experimental: {
+        ppr: 'incremental',
     },
 };
 
