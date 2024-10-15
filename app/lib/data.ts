@@ -152,6 +152,12 @@ export async function fetchFilteredInvoices(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const offsetEnd = offset + ITEMS_PER_PAGE;
 
+  if (query) {
+    return filteredInvoices
+      .filter(q => q.name.includes(query) || q.email.includes(query) || q.status.includes(query))
+      .slice(offset, offsetEnd);
+  }
+
   return filteredInvoices.slice(offset, offsetEnd);
 }
 
