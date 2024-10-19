@@ -14,6 +14,7 @@ const FormSchema = z.object({
 });
 
 const CreateInvoiceSchema = FormSchema.omit({ id: true, date: true });
+const UpdateInvoiceSchema = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
     const { customerId, amount, status } = CreateInvoiceSchema.parse({
@@ -30,6 +31,21 @@ export async function createInvoice(formData: FormData) {
     // TODO: insert into db
 
     // clear this cache and trigger a new request to the server
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+}
+
+export async function updateInvoice(id: string, formData: FormData) {
+    const { customerId, amount, status } = UpdateInvoiceSchema.parse({
+        customerId: formData.get('customerId'),
+        amount: formData.get('amount'),
+        status: formData.get('status'),
+    });
+
+    const amountInCents = amount * 100;
+
+    // TODO: insert into db
+
     revalidatePath('/dashboard/invoices');
     redirect('/dashboard/invoices');
 }
