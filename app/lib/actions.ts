@@ -17,6 +17,7 @@ const CreateInvoiceSchema = FormSchema.omit({ id: true, date: true });
 const UpdateInvoiceSchema = FormSchema.omit({ id: true, date: true });
 
 export async function createInvoice(formData: FormData) {
+    // throw new Error('[TEST] Failed to create invoice.');
     const { customerId, amount, status } = CreateInvoiceSchema.parse({
         customerId: formData.get('customerId'),
         amount: formData.get('amount'),
